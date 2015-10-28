@@ -9,30 +9,14 @@ import sqlite3
 # class episode:
 #   start, end
 
-if __name__ == '__main__': # running standalone
-    ins = True
-    while ins:
-        print("""
-        1. something
-        2. something
-        3. something else
-            """)
-        ins = input("Enter a number or press Enter to quit")
-        if ins == "1":
-            print("Do something")
-        if ins == "2":
-            print("Do something")
-        if ins == "3":
-            print("Do something else")
-
-def read_files():
-    with open('p325Camera.csv', 'rb') as cam_csv:
-        reader = csv.DictReader(cam_csv, delimiter=',', quotechar='"') # unicode_csv_reader()?
+def read_files(cam_csv, acc_csv):
+    with open(cam_csv, 'rb') as cam_data:
+        reader = csv.DictReader(cam_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
         for row in reader: 
             print(row['participant'], row['startTime'])
 
-    with open('p325Accelerometer.csv', 'rb') as acc_csv:
-        reader = csv.DictReader(acc_csv, delimiter=',', quotechar='"') # unicode_csv_reader()?
+    with open(acc_csv, 'rb') as acc_data:
+        reader = csv.DictReader(acc_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
         for row in reader: 
             print(row['timestamp'], row['acceleration'])
 
@@ -43,6 +27,32 @@ def save_data():
     sqlite_file = '/home/kvogel/Projects/cpnp/wearables.sqlite'
     conn = sqlite3.connect(sqlite_file)
     c = conn.cursor()
+
+
+if __name__ == '__main__': # running standalone
+    ins = True
+    while ins:
+        print("""
+        1. Merge raw data
+        2. Query merged data
+        3. something else
+            """)
+        ins = raw_input("Enter a number or q to quit: ") # http://stackoverflow.com/questions/4915361/whats-the-difference-between-raw-input-and-input-in-python3-x
+        if ins == "1":
+            print("Merge raw data")
+        elif ins == "2":
+            print("Query merged data")
+        elif ins == "3":
+            print("Do something else")
+        elif ins == "q":
+            exit()
+        else:
+            print("Try again")
+
+    cam_csv = 'p325Camera.csv'
+    acc_csv = 'p325Accelerometer.csv'
+    read_files(cam_csv, acc_csv)
+
 
 
 # script should support subsequent querying of the database to describe the average acceleration associated with each behaviour type
