@@ -1,24 +1,34 @@
 #!/usr/bin/python
 
+import os
 import csv
+#import pandas
+#import pylab
 import sqlite3
 
 
 
 # object for each behavioural episode
-# class episode:
-#   start, end
+class episode:
+    def __init__():
+        self.start  = 0
+        self.end    = 0
 
 def read_files(cam_csv, acc_csv):
+    episodes = {}
     with open(cam_csv, 'rb') as cam_data:
-        reader = csv.DictReader(cam_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
-        for row in reader: 
-            print(row['participant'], row['startTime'])
+        cam_reader = csv.DictReader(cam_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
+        print("importing camera data")
+        for row in cam_reader: 
+            print("."), # no newline
+            #print(row['participant'], row['startTime'])
 
     with open(acc_csv, 'rb') as acc_data:
-        reader = csv.DictReader(acc_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
-        for row in reader: 
-            print(row['timestamp'], row['acceleration'])
+        acc_reader = csv.DictReader(acc_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
+        print("importing accelerometer data")
+        for row in acc_reader: 
+            print("."), # no newline
+            #print(row['timestamp'], row['acceleration'])
 
 # each behavioural episode will have associated average acceleration data
 
@@ -31,7 +41,9 @@ def save_data():
 
 if __name__ == '__main__': # running standalone
     ins = True
+    clear = lambda : os.system('clear')
     while ins:
+        clear()
         print("""
         1. Merge raw data
         2. Query merged data
@@ -40,6 +52,9 @@ if __name__ == '__main__': # running standalone
         ins = raw_input("Enter a number or q to quit: ") # http://stackoverflow.com/questions/4915361/whats-the-difference-between-raw-input-and-input-in-python3-x
         if ins == "1":
             print("Merge raw data")
+            cam_csv = 'p325Camera.csv'
+            acc_csv = 'p325Accelerometer.csv'
+            read_files(cam_csv, acc_csv)
         elif ins == "2":
             print("Query merged data")
         elif ins == "3":
@@ -49,10 +64,8 @@ if __name__ == '__main__': # running standalone
         else:
             print("Try again")
 
-    cam_csv = 'p325Camera.csv'
-    acc_csv = 'p325Accelerometer.csv'
-    read_files(cam_csv, acc_csv)
-
+# sudo pip install pandas
+# SystemError: Cannot compile 'Python.h'. Perhaps you need to install python-dev|python-devel.
 
 
 # script should support subsequent querying of the database to describe the average acceleration associated with each behaviour type
