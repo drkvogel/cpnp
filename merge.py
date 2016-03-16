@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+""" merge accelerometer data with camera data annotations and analyse """
+
 import os
 import sys
 import csv
@@ -10,9 +12,15 @@ import sqlite3
 # object for each behavioural episode
 # each behavioural episode will have associated average acceleration data
 class episode:
-    def __init__():
-        self.start  = 0
-        self.end    = 0
+    acc_events = {}
+    def __init__(participant,startTime,endTime,source, annotations):
+        # initialise with camera data: start, end time of observed event etc
+
+    def add_acc_event(time, acceleration, xRange, yRange, zRange, xStd, yStd, zStd, samples, dataErrors):
+        # add to list
+
+    def calc_average():
+        # use acc_events list to calc
 
 def read_files(cam_csv, acc_csv):
     episodes = {}
@@ -20,14 +28,15 @@ def read_files(cam_csv, acc_csv):
         cam_reader = csv.DictReader(cam_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
         print("importing camera data")
         for row in cam_reader: 
-            sys.stdout.write('.')
+            #sys.stdout.write('.')
+            # create episode object, add to episodes
             #print(row['participant'], row['startTime'])
 
     with open(acc_csv, 'rb') as acc_data:
         acc_reader = csv.DictReader(acc_data, delimiter=',', quotechar='"') # unicode_csv_reader()?
         print("importing accelerometer data")
         for row in acc_reader: 
-            sys.stdout.write('.')
+            #sys.stdout.write('.')
             #print(row['timestamp'], row['acceleration'])
 
 def save_data():
@@ -39,6 +48,7 @@ def save_data():
     exit()
 
 def query():
+    """ run the query """
     # script should support subsequent querying of the database to describe the average acceleration associated with each behaviour type
     print("TODO")
     exit()
@@ -69,9 +79,6 @@ if __name__ == '__main__': # running standalone
 
 
 
-
-
-
 """
 p325Accelerometer.csv
 timestamp,          acceleration,   xRange,     yRange,     zRange,     xStd,       yStd,       zStd,       temp,   samples,    dataErrors, clipsBeforeCalibr,  clipsAfterCalibr
@@ -84,14 +91,6 @@ p325,           04/11/2014 07:15,   04/11/2014 07:15,   images,     home activit
 
 # Faster code via static typing (Cython): http://docs.cython.org/src/quickstart/cythonize.html
 # http://programmers.stackexchange.com/questions/59606/is-type-safety-worth-the-trade-offs
-
-
-
-
-
-
-
-
 
 # cruft
 

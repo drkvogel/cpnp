@@ -15,7 +15,8 @@ The CSV input files and the target database are hard-coded into the program for 
 
 Timestamp precision is only to the nearest minute and should be much more precise.
 The frequency of samples for the accelerometer is very low and possibly too infrequent to be useful.
-Much of the data supplied does not overlap chronologically, leading to smaller useful dataset.
+Much of the data supplied does not overlap chronologically, leading to a smaller useful dataset.
+Some of the accelerometer data may not be useful, e.g. temp, and possilby clipsBeforeCalibr, clipsAfterCalibr
 
 ## Other Thoughts
 
@@ -29,6 +30,7 @@ sudo apt-get install python-dev
 then
 sudo pip install pandas
 (this takes rather a long time to compile...)
+
 
 Chris Bird Wed Oct 28 14:59:49 2015
 

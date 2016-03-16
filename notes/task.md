@@ -25,3 +25,9 @@ support subsequent querying of the database to describe the average acceleration
 documentation how to run
 assumptions made
 data quality issues encountered
+
+
+zip -r cpnp.zip cpnp
+sent at 15:59:47...
+Wed Oct 28 16:19:47 2015
+
